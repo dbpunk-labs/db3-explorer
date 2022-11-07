@@ -1,0 +1,25 @@
+#root {
+	width: 100%;
+	margin: 0 auto;
+	// padding: 2rem;
+	// text-align: center;
+}
+
+.layout {
+	.logo {
+		a {
+			color: #fff;
+		}
+	}
+}
+.header {
+	display: flex;
+	justify-content: center;
+	.logo {
+		font-family: "Inter";
+		font-style: normal;
+		font-weight: 400;
+		font-size: 55px;
+		line-height: 64px;
+	}
+}
