@@ -64,7 +64,9 @@ const BlockTransaction: React.FC = () => {
 					title='Bill ID'
 					dataIndex='bill_target_id'
 					render={(text) => (
-						<Link to={`/transaction/${text}`}>{text}</Link>
+						<Link to={`/transaction/${encodeURIComponent(text)}`}>
+							{text}
+						</Link>
 					)}
 				/>
 				<Column title='Block number' dataIndex='block_height' />

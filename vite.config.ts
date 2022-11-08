@@ -5,12 +5,12 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
 	plugins: [react()],
 	server: {
-		proxy: {
-			"/api": {
-				target: "https://v2.db3.network",
-				changeOrigin: true,
-				rewrite: (path) => path.replace(/^\/api/, ""),
-			},
-		},
+		// proxy: {
+		// 	"/api": {
+		// 		target: "http://18.117.125.43:26670/",
+		// 		changeOrigin: true,
+		// 		rewrite: (path) => path.replace(/^\/api/, ""),
+		// 	},
+		// },
 	},
 });

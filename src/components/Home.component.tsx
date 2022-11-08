@@ -1,13 +1,13 @@
 import React, { memo, useEffect } from "react";
-import { Card, Space, Table, Typography } from "antd";
+import { Card, Select, Space, Table, Typography } from "antd";
 
 import "../style/home.scss";
 import { Link } from "react-router-dom";
 import { useAsync, useAsyncFn } from "react-use";
-import rpc from "../api/rpc.api";
+import rpc, { setRpcNode } from "../api/rpc.api";
 
 const { Text } = Typography;
-
+const { Option } = Select;
 const { Column } = Table;
 
 const Home: React.FC<{}> = memo((props) => {
@@ -25,8 +25,20 @@ const Home: React.FC<{}> = memo((props) => {
 		fetchBlock();
 	}, []);
 
+	function changNode(value: string) {
+		setRpcNode(`//${value}`);
+	}
 	return (
 		<div className='home'>
+			<Select
+				onChange={changNode}
+				style={{ width: 300, marginBottom: 20 }}
+				allowClear
+			>
+				{netInfoState.value?.peers?.map((item) => (
+					<Option value={item.remote_ip}>{item.remote_ip}</Option>
+				))}
+			</Select>
 			<div className='header-info'>
 				<div className='block-info'>
 					<p>Latest Block</p>
@@ -34,7 +46,7 @@ const Home: React.FC<{}> = memo((props) => {
 				</div>
 				<div className='block-info'>
 					<p>Avg Block Time</p>
-					<p>3.1s</p>
+					<p>1.02s</p>
 				</div>
 				<div className='block-info'>
 					<p>Active Validators</p>
