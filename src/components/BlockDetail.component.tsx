@@ -19,23 +19,27 @@ const BlockOverview: React.FC = () => {
 	return (
 		<div className='block-overview'>
 			<Descriptions column={1}>
-				<Descriptions.Item label='Block Number'>-</Descriptions.Item>
+				<Descriptions.Item label='Block Number'>
+					{blockState.value?.header.height}
+				</Descriptions.Item>
 				<Descriptions.Item label='Block Hash'>
 					{blockState.value?.header.last_block_id.hash}
 				</Descriptions.Item>
 				<Descriptions.Item label='Parent Hash'>-</Descriptions.Item>
-				<Descriptions.Item label='Proposer'>-</Descriptions.Item>
+				<Descriptions.Item label='Proposer'>
+					{blockState.value?.header.proposer_address}
+				</Descriptions.Item>
 				<Descriptions.Item label='Status'>-</Descriptions.Item>
 				<Descriptions.Item label='Timestamp'>
 					{blockState.value?.header.time}
 				</Descriptions.Item>
-				<Descriptions.Item label='Gas Limit'>-</Descriptions.Item>
+				{/* <Descriptions.Item label='Gas Limit'>-</Descriptions.Item>
 				<Descriptions.Item label='Gas Used'>-</Descriptions.Item>
 				<Descriptions.Item label='Base fee per gas'>
 					-
-				</Descriptions.Item>
+				</Descriptions.Item> */}
 				<Descriptions.Item label='Total Transactions'>
-					-
+					{blockState.value?.data.txs?.length}
 				</Descriptions.Item>
 			</Descriptions>
 		</div>
@@ -58,15 +62,13 @@ const BlockTransaction: React.FC = () => {
 			>
 				<Column
 					title='Bill ID'
-					dataIndex='bill_id'
-					render={(text, record: any) => (
-						<Link to={`/transaction/${record.bill_target_id}`}>
-							{text}
-						</Link>
+					dataIndex='bill_target_id'
+					render={(text) => (
+						<Link to={`/transaction/${text}`}>{text}</Link>
 					)}
 				/>
-				<Column title='Block' dataIndex='block' />
-				<Column title='Age' dataIndex='age' />
+				<Column title='Block number' dataIndex='block_height' />
+				{/* <Column title='Age' dataIndex='age' /> */}
 				<Column title='From' dataIndex='owner' />
 				<Column title='To' dataIndex='bill_target_id' />
 				<Column

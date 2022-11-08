@@ -3,7 +3,7 @@ import { Card, Space, Table, Typography } from "antd";
 
 import "../style/home.scss";
 import { Link } from "react-router-dom";
-import { useAsyncFn } from "react-use";
+import { useAsync, useAsyncFn } from "react-use";
 import rpc from "../api/rpc.api";
 
 const { Text } = Typography;
@@ -14,11 +14,13 @@ const Home: React.FC<{}> = memo((props) => {
 	const [blockListState, fetchBlock] = useAsyncFn(async (): Promise<
 		any[]
 	> => {
-		const {
-			result: { block_metas },
-		} = await rpc("latest_blocks", []);
-		return block_metas;
+		const { result } = await rpc("latest_blocks", []);
+		return result;
 	}, []);
+	const netInfoState = useAsync(async () => {
+		const { result } = await rpc("net_info", []);
+		return result;
+	});
 	useEffect(() => {
 		fetchBlock();
 	}, []);
@@ -28,7 +30,7 @@ const Home: React.FC<{}> = memo((props) => {
 			<div className='header-info'>
 				<div className='block-info'>
 					<p>Latest Block</p>
-					<p>100</p>
+					<p>{blockListState.value?.last_height}</p>
 				</div>
 				<div className='block-info'>
 					<p>Avg Block Time</p>
@@ -36,11 +38,11 @@ const Home: React.FC<{}> = memo((props) => {
 				</div>
 				<div className='block-info'>
 					<p>Active Validators</p>
-					<p>10</p>
+					<p>{netInfoState.value?.n_peers}</p>
 				</div>
 			</div>
 			<Card title='Latest Block '>
-				<Table dataSource={blockListState.value}>
+				<Table dataSource={blockListState.value?.block_metas}>
 					<Column
 						title='hash'
 						dataIndex={["block_id", "hash"]}
@@ -57,10 +59,10 @@ const Home: React.FC<{}> = memo((props) => {
 					<Column title='Height' dataIndex={["header", "height"]} />
 					<Column title='Time' dataIndex={["header", "time"]} />
 					<Column title='Total Txs' dataIndex='num_txs' />
-					<Column title='Gas Limit' dataIndex='gasLimit' />
+					{/* <Column title='Gas Limit' dataIndex='gasLimit' />
 					<Column title='Gas Used' dataIndex='gasUsed' />
 					<Column title='Base fee' dataIndex='baseFee' />
-					<Column title='Proposer' dataIndex='proposer' />
+					<Column title='Proposer' dataIndex='proposer' /> */}
 				</Table>
 			</Card>
 		</div>
