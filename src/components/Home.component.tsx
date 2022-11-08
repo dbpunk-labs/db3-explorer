@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { memo, useEffect } from "react";
 import { Card, Select, Space, Table, Typography } from "antd";
 

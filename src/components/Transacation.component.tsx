@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Descriptions, List, Typography } from "antd";
 import React, { memo } from "react";
 import { useParams } from "react-router-dom";
