@@ -8,7 +8,9 @@ import rpcApi from "../api/rpc.api";
 const TransactionDetail: React.FC = memo((props) => {
 	const { targetId } = useParams();
 	const detailState = useAsync(async () => {
-		const { result } = await rpcApi("mutation", [targetId]);
+		const { result } = await rpcApi("mutation", [
+			decodeURIComponent(targetId),
+		]);
 		return result;
 	}, [targetId]);
 

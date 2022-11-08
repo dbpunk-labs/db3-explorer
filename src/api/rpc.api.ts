@@ -28,6 +28,11 @@ instance.interceptors.response.use(
 	},
 );
 
+let rpcNode = "https://v2.db3.network";
+export const setRpcNode = function (rpc: string) {
+	rpcNode = rpc;
+};
+
 export default (method: string, params: any) => {
-	return instance.post("/", { jsonrpc: "2.0", id: 2, method, params });
+	return instance.post(rpcNode, { jsonrpc: "2.0", id: 2, method, params });
 };
