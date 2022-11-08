@@ -7,8 +7,8 @@ export interface ApiResponse<T> {
 }
 
 const instance = axios.create({
-	baseURL: "/api",
-	// baseURL: "https://v2.db3.network",
+	//baseURL: "/api",
+	baseURL: "https://v2.db3.network",
 });
 
 instance.interceptors.response.use(
